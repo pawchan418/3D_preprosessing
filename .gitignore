@@ -1,2 +1,4 @@
 .DS_Store
-bin/.DS_Store
+module/.DS_Store
+input/
+output/
