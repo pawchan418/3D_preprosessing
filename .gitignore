@@ -1,6 +1,6 @@
 .DS_Store
 module/.DS_Store
 input/
-output/
-trim/
+*output/
+*trim/
 module/__pycache__
