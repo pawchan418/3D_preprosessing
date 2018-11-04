@@ -20,14 +20,19 @@ class Csv2Png():
 
         ksize = 3
         img_mask = cv2.medianBlur(img,ksize)
-        img_mask20 = img_mask * 20
 
-        gamma = 2.0
-        max = 65535
-        img_mask20_gamma = max * (img_mask20 / max)**(1/gamma)
+        np.savetxt('{0}/{1}.csv'.format(dir, filename), img, delimiter=',')
+        np.savetxt('{0}/{1}mask.csv'.format(dir, filename), img_mask, delimiter=',')
 
+        for y in range(424):
+            for x in range(512):
+                if img_mask[y, x] > 1000:
+                    img_mask[y, x] = img_mask[y, x] - 1000
+                else:
+                    img_mask[y, x] = 0
+        gamma = 0.5
+        max = 1760
+        img_mask_gamma = max * (img_mask / max)**(1/gamma)
 
-        np.savetxt('{0}/{1}.csv'.format(dir, filename), img_mask, delimiter=',')
-        cv2.imwrite('{0}/{1}.png'.format(dir, filename), img_mask)
-        cv2.imwrite('{0}/{1}20.png'.format(dir, filename), img_mask20)
-        cv2.imwrite('{0}/{1}20gamma.png'.format(dir, filename), img_mask20_gamma)
+        np.savetxt('{0}/{1}mask_gamma.csv'.format(dir, filename), img_mask_gamma, delimiter=',')
+        cv2.imwrite('{0}/{1}gamma.png'.format(dir, filename), img_mask_gamma)
