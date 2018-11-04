@@ -3,3 +3,4 @@ module/.DS_Store
 input/
 output/
 trim/
+module/__pycache__
